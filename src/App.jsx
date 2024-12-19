@@ -86,7 +86,9 @@ export const App = () => {
           className={cn('button', 'is-info', {
             'is-light': !isReversed,
           })}
-          onClick={reverseOrder}
+          onClick={() => {
+            setIsReverse();
+          }}
         >
           Reverse
         </button>
