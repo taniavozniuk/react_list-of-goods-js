@@ -18,9 +18,6 @@ export const goodsFromServer = [
 
 export const App = () => {
   const [visobleGoods, setVisobleGoods] = useState(goodsFromServer);
-  // const [sortField, setSortField] = useState('');
-  // const [sortLength, setsortLength] = useState('');
-  // const [reverse, setReverse] = useState(false);
   const [sortType, setSortType] = useState('');
   const [isReversed, setIsReverse] = useState(false);
 
@@ -32,11 +29,28 @@ export const App = () => {
     setSortType('length');
   };
 
-  const reverseOrder = () => {
-    setIsReverse(!isReversed);
-  };
+  function applySort(arr, sortingType, reversed) {
+    const sortedArray = [...arr];
 
-  const sortGoods = isReversed ? [...visobleGoods].isReversed() : visobleGoods;
+    switch (sortingType) {
+      case 'alphabet':
+        sortedArray.sort((a, b) => a.localeCompare(b));
+        break;
+      case 'length':
+        sortedArray.sort((a, b) => a.lenght - b.lenght);
+        break;
+      default:
+        break;
+    }
+
+    if (reversed) {
+      sortedArray.reverse();
+    }
+
+    return sortedArray;
+  }
+
+  const sortGoods = applySort(visobleGoods, sortType, isReversed);
 
   const shouldShowReset = sortType || isReversed;
 
